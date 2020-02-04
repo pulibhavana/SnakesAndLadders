@@ -2,26 +2,37 @@ import java.util.*;
 
 public class Snake 
 {
-	int startingPosition,endingPosition;
+	int startingPosition, endingPosition;
 	
 	Snake()
 	{
-		getPositions();
+		startingPosition = getStartingPosition();
+		endingPosition = getEndingPosition();
 	}
 	
-	public void getPositions()
+	public int getStartingPosition()
 	{
-		Scanner input=new Scanner(System.in);
-		System.out.println("Enter the Snake starting and ending positions");
-		startingPosition=input.nextInt();
-		endingPosition=input.nextInt();
+		int input;
+		Scanner in=new Scanner(System.in);
+		System.out.println("Enter the Snake starting position");
+		input=in.nextInt();
+		return input;
+	}
+	
+	public int getEndingPosition()
+	{
+		int input;
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter the Snake Ending position");
+		input=in.nextInt();
+		return input;
 	}
 	
 	public boolean counterOnSnake(Player object)
 	{
-		if(object.currentPosition==startingPosition)
+		if(object.currentPosition == startingPosition)
 		{
-			object.currentPosition=endingPosition;
+			object.currentPosition = endingPosition;
 			return true;
 		}
 		return false;

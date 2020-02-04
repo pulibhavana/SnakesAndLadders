@@ -6,22 +6,34 @@ public class Ladder
 	
 	Ladder()
 	{
-		getpoints();
+		startingPoint = getStartingPoint();
+		endingPoint = getEndingPoint();
 	}
 	
-	public void getpoints()
+	public int getStartingPoint()
 	{
-		Scanner input =new Scanner(System.in);
-		System.out.println("Enter the ladder starting and ending point");
-		startingPoint=input.nextInt();
-		endingPoint=input.nextInt();
+		int input;
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter the ladder starting point");
+		input = in.nextInt();
+		return input;
+	}
+	
+	public int getEndingPoint()
+	{
+		int input;
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter the ladder ending point");
+		input = in.nextInt();
+		return input;
+		
 	}
 	
 	public boolean counterOnLadder(Player playerObject)
 	{
-		if(playerObject.currentPosition==startingPoint)
+		if(playerObject.currentPosition == startingPoint)
 		{
-			playerObject.currentPosition=endingPoint;
+			playerObject.currentPosition = endingPoint;
 			return true;
 		}
 		return false;

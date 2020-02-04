@@ -3,11 +3,12 @@ import java.util.*;
 public class Player 
 {
 	String counterColor,playername;
-	int currentPosition=0;
+	int currentPosition;
 	
 	Player()
 	{
-		counterColor=getPlayerColor();
+		counterColor = getPlayerColor();
+		currentPosition = 0;
 	}
 	
 	public String getPlayerColor()
@@ -15,16 +16,17 @@ public class Player
 		String color;
 		Scanner input = new Scanner(System.in);
 		System.out.println("enter the name of player");
-		playername=input.nextLine();
+		playername = input.nextLine();
 		System.out.println("Enter the color of"+playername);
-		color=input.nextLine();
+		color = input.nextLine();
 		return color;
 	}
 	
 	public int rollTheDice(Dice diceObject)
 	{
 		int number;
-		number=diceObject.displayNumber();
+		number = diceObject.getNumber();
+		System.out.println("you rolled"+number);
 		return number;
 	}
 }

@@ -9,44 +9,39 @@ public class Game
 	
 	Game()
 	{
-		boardObject=new Board();
-		dice=new Dice();
+		playerInformation();
+		boardObject = new Board();
+		dice = new Dice();
 	}
 	
 	public void startGame()
 	{
-		Scanner input=new Scanner(System.in);
-		int turn=0,index;
+		int index, number=0;
+		for(index = 0;!gameEnds();index = (++index)%noOfPlayers)
+		{
+			System.out.println(player[index].counterColor+" 's turn");
+			number=player[index].rollTheDice(dice);
+			updateCounter(number,player[index]);
+		}
+		System.out.println("Game over");
+	
+	}
+	
+	public void playerInformation()
+	{
+		Scanner input = new Scanner(System.in);
 		System.out.println("Enter number of players");
 		noOfPlayers=input.nextInt();
 		player=new Player[noOfPlayers];
-		for(int playerNumber=0;playerNumber<noOfPlayers;playerNumber++)
+		for(int playerNumber = 0;playerNumber < noOfPlayers;playerNumber++)
 			player[playerNumber]=new Player();
-		
-		for(index=0;!gameEnds();index=(turn++)%noOfPlayers)
-		{
-			int number=0;
-			String value;;
-			System.out.println(player[index].counterColor+" 's turn");
-			System.out.println("enter roll to roll the dice");
-			value=input.nextLine();
-			if(value=="roll")
-			{
-				number=player[index].rollTheDice(dice);
-			}
-			boardObject.moveTheCounter(number,player[index]);
-		}
-		
-		System.out.println("Game over");
-	
-		
 	}
 	
-	public boolean gameEnds()
-	{
-		for(int index=0;index<noOfPlayers;index++)
+	
+	public boolean gameEnds(){
+		for(int index = 0;index < noOfPlayers;index++)
 		{
-			if(player[index].currentPosition==boardObject.winningPosition)
+			if(player[index].currentPosition == boardObject.winningPosition)
 			{
 				System.out.println(player[index].counterColor+" is Winner");
 				return true;
@@ -55,9 +50,12 @@ public class Game
 		return false;
 	}
 	
-	public static void main(String[] args)
+	public void updateCounter(int number,Player player)
 	{
-		Game snakeAndLadder=new Game();
-		snakeAndLadder.startGame();
+		boardObject.moveTheCounter(number,player);
+		boardObject.checkForSnake(player);
+		boardObject.checkForLadder(player);
 	}
+	
+	
 }

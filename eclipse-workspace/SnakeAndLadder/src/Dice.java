@@ -4,10 +4,9 @@ public class Dice
 {
 	int number;
 	
-	public int displayNumber()
+	public int getNumber()
 	{
-		number=(int)(6.0*Math.random());
-		System.out.println("you rolled"+number);
+		number = (int)(6.0 * Math.random());
 		return number;
 	}
 }
