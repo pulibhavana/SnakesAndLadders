@@ -4,12 +4,18 @@ public class Board
 {
 	Snake snakes[]=new Snake[3];
 	Ladder ladder[]=new Ladder[3];
-	int winningPosition=30;
+	int winningPosition;
 	
 	Board()
 	{
 		initializeTheSnakes();
 		initializeTheLadders();
+	}
+	
+	public int getWinningPosition()
+	{
+		winningPosition = 30;
+		return winningPosition;
 	}
 	
 	public void initializeTheSnakes()
@@ -26,19 +32,19 @@ public class Board
 	
 	
 	public void moveTheCounter(int position,Player playerObject){
-		int move = playerObject.currentPosition+position;
+		int move = playerObject.position+position;
 		if(move > winningPosition)
 			System.out.println("can't move");
 		else
 		{
-			playerObject.currentPosition+=position;
+			playerObject.position+=position;
 			System.out.print(playerObject.counterColor+"current position is");
-			System.out.println(playerObject.currentPosition);
+			System.out.println(playerObject.position);
 		}
 		
 	}
 	
-	public void checkForSnake(Player playerObject)
+	public void checkForSnakes(Player playerObject)
 	{
 		for(int index = 0;index < 3;index++)
 		{
@@ -49,7 +55,7 @@ public class Board
 		}
 	}
 	
-	public void checkForLadder(Player playerObject)
+	public void checkForLadders(Player playerObject)
 	{
 		for(int index = 0;index < 3;index++)
 		{

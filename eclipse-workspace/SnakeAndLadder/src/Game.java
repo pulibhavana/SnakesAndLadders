@@ -3,28 +3,37 @@ import java.util.*;
 public class Game 
 {
 	Player player[];
-	Board boardObject;
+	Board board;
 	Dice dice;
-	int noOfPlayers;
+	int noOfPlayers,turn = 0;
 	
 	Game()
 	{
-		playerInformation();
-		boardObject = new Board();
+		board = new Board();
 		dice = new Dice();
 	}
 	
 	public void startGame()
 	{
-		int index, number=0;
-		for(index = 0;!gameEnds();index = (++index)%noOfPlayers)
+		playerInformation();
+		for(turn = 0; ;turn=whoseNextTurn())
 		{
-			System.out.println(player[index].counterColor+" 's turn");
-			number=player[index].rollTheDice(dice);
-			updateCounter(number,player[index]);
+			Player currentPlayer = player[turn];
+			System.out.println(player[turn].counterColor+" 's turn");
+			int number=player[turn].rollTheDice(dice);
+			updateCounter(number,player[turn]);
+			if(hasWon(currentPlayer))
+				break;
 		}
 		System.out.println("Game over");
 	
+	}
+	
+	public int whoseNextTurn()
+	{
+		int nextTurn;
+		nextTurn=(++turn)%noOfPlayers;
+		return nextTurn;
 	}
 	
 	public void playerInformation()
@@ -38,24 +47,20 @@ public class Game
 	}
 	
 	
-	public boolean gameEnds(){
-		for(int index = 0;index < noOfPlayers;index++)
-		{
-			if(player[index].currentPosition == boardObject.winningPosition)
+	public boolean hasWon(Player currentPlayer)
+	{
+			if(currentPlayer.getPosition() == board.getWinningPosition())
 			{
-				System.out.println(player[index].counterColor+" is Winner");
+				System.out.println(currentPlayer.playerName+" is Winner");
 				return true;
 			}
-		}
-		return false;
+			return false;
 	}
 	
 	public void updateCounter(int number,Player player)
 	{
-		boardObject.moveTheCounter(number,player);
-		boardObject.checkForSnake(player);
-		boardObject.checkForLadder(player);
+		board.moveTheCounter(number,player);
+		board.checkForSnakes(player);
+		board.checkForLadders(player);
 	}
-	
-	
 }

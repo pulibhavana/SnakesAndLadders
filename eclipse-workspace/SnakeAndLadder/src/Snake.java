@@ -30,9 +30,9 @@ public class Snake
 	
 	public boolean counterOnSnake(Player object)
 	{
-		if(object.currentPosition == startingPosition)
+		if(object.position == startingPosition)
 		{
-			object.currentPosition = endingPosition;
+			object.position = endingPosition;
 			return true;
 		}
 		return false;

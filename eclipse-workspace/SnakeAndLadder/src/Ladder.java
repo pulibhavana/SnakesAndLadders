@@ -31,9 +31,9 @@ public class Ladder
 	
 	public boolean counterOnLadder(Player playerObject)
 	{
-		if(playerObject.currentPosition == startingPoint)
+		if(playerObject.position == startingPoint)
 		{
-			playerObject.currentPosition = endingPoint;
+			playerObject.position = endingPoint;
 			return true;
 		}
 		return false;

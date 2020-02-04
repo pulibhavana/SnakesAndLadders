@@ -2,13 +2,13 @@ import java.util.*;
 
 public class Player 
 {
-	String counterColor,playername;
-	int currentPosition;
+	String counterColor,playerName;
+	int position;
 	
 	Player()
 	{
 		counterColor = getPlayerColor();
-		currentPosition = 0;
+		position = 0;
 	}
 	
 	public String getPlayerColor()
@@ -16,8 +16,8 @@ public class Player
 		String color;
 		Scanner input = new Scanner(System.in);
 		System.out.println("enter the name of player");
-		playername = input.nextLine();
-		System.out.println("Enter the color of"+playername);
+		playerName = input.nextLine();
+		System.out.println("Enter the color of"+playerName);
 		color = input.nextLine();
 		return color;
 	}
@@ -28,5 +28,10 @@ public class Player
 		number = diceObject.getNumber();
 		System.out.println("you rolled"+number);
 		return number;
+	}
+	
+	public int getPosition()
+	{
+		return position;
 	}
 }
