@@ -10,17 +10,13 @@ public class Ladder
 		endingPosition = endPosition;
 	}
 	
-	
-	
-	public boolean isCounterOnLadder(Player player)
+	public int getStartingPosition()
 	{
-		int playerPosition=player.getPosition();
-		if(playerPosition == startingPosition)
-		{
-			player.position = endingPosition;
-			return true;
-		}
-		return false;
+		return startingPosition;
 	}
 	
+	public int getEndingPosition()
+	{
+		return endingPosition;
+	}
 }

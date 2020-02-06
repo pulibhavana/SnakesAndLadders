@@ -6,5 +6,4 @@ public class Main
 		Game snakeAndLadder = new Game();
 		snakeAndLadder.startGame();
 	}
-
 }

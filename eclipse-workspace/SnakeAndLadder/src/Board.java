@@ -3,7 +3,7 @@
 public class Board
 {
 	Snake snakes[]=new Snake[3];
-	Ladder ladder[]=new Ladder[4];
+	Ladder ladders[]=new Ladder[4];
 	int winningPosition;
 	
 	Board()
@@ -11,53 +11,58 @@ public class Board
 		snakes[0] = new Snake(27,1);
 		snakes[1] = new Snake(21,9);
 		snakes[2] = new Snake(17,4);
-		ladder[0] = new Ladder(3,22);
-		ladder[1] = new Ladder(5,8);
-		ladder[2] = new Ladder(11,26);
-		ladder[3] = new Ladder(20,29);
+		ladders[0] = new Ladder(3,22);
+		ladders[1] = new Ladder(5,8);
+		ladders[2] = new Ladder(11,26);
+		ladders[3] = new Ladder(20,29);
+		winningPosition = 30;
 	}
 	
 	public int getWinningPosition()
 	{
-		winningPosition = 30;
 		return winningPosition;
 	}
 	
-	public void moveTheCounter(int position,Player player)
+	public int moveTheColor(int number,Player player)
 	{
-		int move = player.position+position;
-		if(move > winningPosition)
-			System.out.println("can't move");
+		int currentPosition = player.getPosition() + number;
+		
+		if(!isValidMove(currentPosition))
+				System.out.println("can't move");
+				
 		else
 		{
-			player.position+=position;
-			System.out.print(player.counterColor+"current position is");
-			System.out.println(player.position);
+			player.position = currentPosition;
 		}
+		return player.position;
+	}
+	
+	public boolean isValidMove(int position)
+	{
+		return(position <= winningPosition);
+			
+	}
+	
+	public Snake checkForSnakes(int position)
+	{
+	    Snake snake = null ;
+		for(int index = 0;index < 3;index++)
+		{
+			if(position == snakes[index].getStartingPosition())
+				snake = snakes[index];
+		}
+		return snake;
 		
 	}
 	
-	public void checkForSnakes(Player player)
+	public Ladder checkForLadders(int position)
 	{
+		Ladder ladder = null;
 		for(int index = 0;index < 3;index++)
 		{
-			boolean result;
-			result=snakes[index].isCounterOnSnake(player);
-			if(result)
-				break;
+			if(position == ladders[index].getStartingPosition())
+				ladder = ladders[index];
 		}
+		return ladder;
 	}
-	
-	public void checkForLadders(Player player)
-	{
-		for(int index = 0;index < 3;index++)
-		{
-			boolean result;
-			result=ladder[index].isCounterOnLadder(player);
-			if(result)
-				break;
-		}
-	}
-
-	
 }

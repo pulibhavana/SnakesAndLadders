@@ -10,14 +10,14 @@ public class Snake
 		endingPosition = endPosition;
 	}
 	
-	public boolean isCounterOnSnake(Player player)
+	public int getStartingPosition()
 	{
-		if(player.getPosition() == startingPosition)
-		{
-			player.position = endingPosition;
-			return true;
-		}
-		return false;
+		return startingPosition;
+	}
+	
+	public int getEndingPosition()
+	{
+		return endingPosition;
 	}
 }
 

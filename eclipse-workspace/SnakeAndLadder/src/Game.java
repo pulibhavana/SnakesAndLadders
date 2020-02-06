@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Game 
@@ -11,7 +12,7 @@ public class Game
 	{
 		board = new Board();
 		dice = new Dice();
-		players=getPlayerDetails();
+		players=getPlayers();
 	}
 	
 	public void startGame(){
@@ -21,7 +22,10 @@ public class Game
 			Player currentPlayer = players[currentPlayerTurn];
 			playgame(currentPlayer);
 			if(hasWon(currentPlayer))
+			{
+				System.out.println(currentPlayer.getPlayerName()+" has won");
 				gameEnds = true;
+			}
 			currentPlayerTurn = getNextTurn();
 		}
 	
@@ -30,7 +34,8 @@ public class Game
 	public void playgame(Player currentPlayer)
 	{
 		int number = currentPlayer.rollTheDice(dice);
-		updateCounter(number, currentPlayer);
+		System.out.println("you rolled "+ number);
+		updateColor(number, currentPlayer);
 	}
 	
 	
@@ -40,29 +45,32 @@ public class Game
 		return nextTurn;
 	}
 	
-	public Player[] getPlayerDetails()
+	public Player[] getPlayers()
 	{
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter number of players");
 		noOfPlayers=input.nextInt();
-		players=new Player[noOfPlayers];
-		for(int playerId = 0;playerId < noOfPlayers;playerId++)
-			players[playerId]=new Player();
-		return players;
+		Player playersDetails[] = new Player[noOfPlayers];
+		for(int playerId = 0; playerId < noOfPlayers; playerId++)
+			playersDetails[playerId]=new Player();
+		return playersDetails;
 	}
 	
 	
 	public boolean hasWon(Player currentPlayer)
 	{
-		System.out.println(currentPlayer.getPlayerName()+" has won");
 		return (currentPlayer.getPosition() == board.getWinningPosition());
-			
 	}
 	
-	public void updateCounter(int number,Player currentPlayer)
+	public void updateColor(int number,Player currentPlayer)
 	{
-		board.moveTheCounter(number,currentPlayer);
-		board.checkForSnakes(currentPlayer);
-		board.checkForLadders(currentPlayer);
+		int updatedPosition; Snake snake; Ladder ladder;
+		updatedPosition = board.moveTheColor(number,currentPlayer);
+		snake = board.checkForSnakes(updatedPosition);
+		if(snake!=null)
+			currentPlayer.position = snake.getEndingPosition();
+		ladder = board.checkForLadders(updatedPosition);
+		if(ladder!=null)
+			currentPlayer.position = ladder.getEndingPosition();
 	}
 }
