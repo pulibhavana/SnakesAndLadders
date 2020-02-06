@@ -2,65 +2,67 @@ import java.util.*;
 
 public class Game 
 {
-	Player player[];
+	Player players[];
 	Board board;
 	Dice dice;
-	int noOfPlayers,turn = 0;
+	int noOfPlayers,currentPlayerTurn = 0;
 	
 	Game()
 	{
 		board = new Board();
 		dice = new Dice();
+		players=getPlayerDetails();
 	}
 	
-	public void startGame()
-	{
-		playerInformation();
-		for(turn = 0; ;turn=whoseNextTurn())
+	public void startGame(){
+		boolean gameEnds = false;
+		while(!gameEnds)
 		{
-			Player currentPlayer = player[turn];
-			System.out.println(player[turn].counterColor+" 's turn");
-			int number=player[turn].rollTheDice(dice);
-			updateCounter(number,player[turn]);
+			Player currentPlayer = players[currentPlayerTurn];
+			playgame(currentPlayer);
 			if(hasWon(currentPlayer))
-				break;
+				gameEnds = true;
+			currentPlayerTurn = getNextTurn();
 		}
-		System.out.println("Game over");
 	
 	}
 	
-	public int whoseNextTurn()
+	public void playgame(Player currentPlayer)
 	{
-		int nextTurn;
-		nextTurn=(++turn)%noOfPlayers;
+		int number = currentPlayer.rollTheDice(dice);
+		updateCounter(number, currentPlayer);
+	}
+	
+	
+	public int getNextTurn()
+	{
+		int nextTurn = (currentPlayerTurn + 1) % noOfPlayers;
 		return nextTurn;
 	}
 	
-	public void playerInformation()
+	public Player[] getPlayerDetails()
 	{
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter number of players");
 		noOfPlayers=input.nextInt();
-		player=new Player[noOfPlayers];
-		for(int playerNumber = 0;playerNumber < noOfPlayers;playerNumber++)
-			player[playerNumber]=new Player();
+		players=new Player[noOfPlayers];
+		for(int playerId = 0;playerId < noOfPlayers;playerId++)
+			players[playerId]=new Player();
+		return players;
 	}
 	
 	
 	public boolean hasWon(Player currentPlayer)
 	{
-			if(currentPlayer.getPosition() == board.getWinningPosition())
-			{
-				System.out.println(currentPlayer.playerName+" is Winner");
-				return true;
-			}
-			return false;
+		System.out.println(currentPlayer.getPlayerName()+" has won");
+		return (currentPlayer.getPosition() == board.getWinningPosition());
+			
 	}
 	
-	public void updateCounter(int number,Player player)
+	public void updateCounter(int number,Player currentPlayer)
 	{
-		board.moveTheCounter(number,player);
-		board.checkForSnakes(player);
-		board.checkForLadders(player);
+		board.moveTheCounter(number,currentPlayer);
+		board.checkForSnakes(currentPlayer);
+		board.checkForLadders(currentPlayer);
 	}
 }

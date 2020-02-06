@@ -2,38 +2,22 @@ import java.util.*;
 
 public class Ladder 
 {
-	int startingPoint,endingPoint;
+	int startingPosition,endingPosition;
 	
-	Ladder()
+	Ladder(int startPosition, int endPosition)
 	{
-		startingPoint = getStartingPoint();
-		endingPoint = getEndingPoint();
+		startingPosition = startPosition;
+		endingPosition = endPosition;
 	}
 	
-	public int getStartingPoint()
-	{
-		int input;
-		Scanner in = new Scanner(System.in);
-		System.out.println("Enter the ladder starting point");
-		input = in.nextInt();
-		return input;
-	}
 	
-	public int getEndingPoint()
-	{
-		int input;
-		Scanner in = new Scanner(System.in);
-		System.out.println("Enter the ladder ending point");
-		input = in.nextInt();
-		return input;
-		
-	}
 	
-	public boolean counterOnLadder(Player playerObject)
+	public boolean isCounterOnLadder(Player player)
 	{
-		if(playerObject.position == startingPoint)
+		int playerPosition=player.getPosition();
+		if(playerPosition == startingPosition)
 		{
-			playerObject.position = endingPoint;
+			player.position = endingPosition;
 			return true;
 		}
 		return false;

@@ -3,13 +3,18 @@
 public class Board
 {
 	Snake snakes[]=new Snake[3];
-	Ladder ladder[]=new Ladder[3];
+	Ladder ladder[]=new Ladder[4];
 	int winningPosition;
 	
 	Board()
 	{
-		initializeTheSnakes();
-		initializeTheLadders();
+		snakes[0] = new Snake(27,1);
+		snakes[1] = new Snake(21,9);
+		snakes[2] = new Snake(17,4);
+		ladder[0] = new Ladder(3,22);
+		ladder[1] = new Ladder(5,8);
+		ladder[2] = new Ladder(11,26);
+		ladder[3] = new Ladder(20,29);
 	}
 	
 	public int getWinningPosition()
@@ -18,49 +23,37 @@ public class Board
 		return winningPosition;
 	}
 	
-	public void initializeTheSnakes()
+	public void moveTheCounter(int position,Player player)
 	{
-		for(int index = 0;index < 3;index ++)
-			snakes[index] = new Snake();
-	}
-	
-	public void initializeTheLadders()
-	{
-		for(int index = 0;index < 3;index ++)
-			ladder[index] = new Ladder();
-	}
-	
-	
-	public void moveTheCounter(int position,Player playerObject){
-		int move = playerObject.position+position;
+		int move = player.position+position;
 		if(move > winningPosition)
 			System.out.println("can't move");
 		else
 		{
-			playerObject.position+=position;
-			System.out.print(playerObject.counterColor+"current position is");
-			System.out.println(playerObject.position);
+			player.position+=position;
+			System.out.print(player.counterColor+"current position is");
+			System.out.println(player.position);
 		}
 		
 	}
 	
-	public void checkForSnakes(Player playerObject)
+	public void checkForSnakes(Player player)
 	{
 		for(int index = 0;index < 3;index++)
 		{
 			boolean result;
-			result=snakes[index].counterOnSnake(playerObject);
+			result=snakes[index].isCounterOnSnake(player);
 			if(result)
 				break;
 		}
 	}
 	
-	public void checkForLadders(Player playerObject)
+	public void checkForLadders(Player player)
 	{
 		for(int index = 0;index < 3;index++)
 		{
 			boolean result;
-			result=ladder[index].counterOnLadder(playerObject);
+			result=ladder[index].isCounterOnLadder(player);
 			if(result)
 				break;
 		}
