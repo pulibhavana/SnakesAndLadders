@@ -34,7 +34,7 @@ public class Game
 	public void playgame(Player currentPlayer)
 	{
 		int number = currentPlayer.rollTheDice(dice);
-		System.out.println("you rolled "+ number);
+		System.out.println(currentPlayer.getPlayerName()+" rolls" + number);
 		updateColor(number, currentPlayer);
 	}
 	
@@ -68,9 +68,9 @@ public class Game
 		updatedPosition = board.moveTheColor(number,currentPlayer);
 		snake = board.checkForSnakes(updatedPosition);
 		if(snake!=null)
-			currentPlayer.position = snake.getEndingPosition();
+			currentPlayer.setPosition(snake.getEndingPosition());
 		ladder = board.checkForLadders(updatedPosition);
 		if(ladder!=null)
-			currentPlayer.position = ladder.getEndingPosition();
+			currentPlayer.setPosition(ladder.getEndingPosition());
 	}
 }

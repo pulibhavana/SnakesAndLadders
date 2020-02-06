@@ -21,6 +21,11 @@ public class Player
 		return position;
 	}
 	
+	public void setPosition(int newPosition)
+	{
+	  position = newPosition;
+	}
+	
 	public String getPlayerColor()
 	{
 		String color;
