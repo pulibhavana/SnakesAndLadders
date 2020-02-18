@@ -1,4 +1,3 @@
-var numbers = [10,35,54,27,1,8];
 
 function selectOddNumbers(numbers) {
     var listOfOddNumbers = []
@@ -16,5 +15,10 @@ function isodd(num)
     return (num%2 != 0);
 }
 
-console.log("The odd numbers from the list are")
-console.log(selectOddNumbers(numbers));
+function input() {
+    var numbers = [10, 35, 54, 27, 1, 8];
+    console.log("The given list is " + numbers)
+    console.log("The odd numbers from the list are")
+    console.log(selectOddNumbers(numbers))
+}
+input()
